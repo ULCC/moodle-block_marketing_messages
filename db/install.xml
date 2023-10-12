@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PATH="blocks/marketing_messages/db" VERSION="20160704" COMMENT="XMLDB file for Moodle blocks/marketing_messages" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="block_marketing_messages" COMMENT="A record of all advanced announcements">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="title" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="To be used for announcement's title"/>
+        <FIELD NAME="message" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="To be used as announcement's message"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="info" SEQUENCE="false" COMMENT="What type of announcement to be displayed"/>
+        <FIELD NAME="aicon" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether an icon should be displayed or not"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggle whether announcement is enabled/displayed or not"/>
+        <FIELD NAME="global" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether announcement is a global or instance-based"/>
+        <FIELD NAME="audience" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="all" SEQUENCE="false" COMMENT="target audience"/>
+        <FIELD NAME="blockid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether announcement is a global or instance-based"/>
+        <FIELD NAME="dismissible" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Toggles whether announcement is dismissible by user or not"/>
+        <FIELD NAME="date_from" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="From when the announcement should be displayed."/>
+        <FIELD NAME="date_to" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="Until when the announcement will be displayed to users"/>
+        <FIELD NAME="times" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of times a user has to see the announcement"/>
+        <FIELD NAME="deleted" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="A flag to keep track of whether the announcement has been deleted"/>
+        <FIELD NAME="deleted_at" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" COMMENT="Record of when the announcement was deleted"/>
+        <FIELD NAME="deleted_by" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="-1" SEQUENCE="false" COMMENT="Record of which user deleted the announcement"/>
+        <FIELD NAME="created_by" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="-1" SEQUENCE="false" COMMENT="Record of which user created the announcement"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_marketing_messagesdiss" COMMENT="Keeps track of user interaction with advanced announcements">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="User related to occurrence of announcement"/>
+        <FIELD NAME="not_id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Announcement user interaction relates to"/>
+        <FIELD NAME="dismissed" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Flag of whether user dismissed occurrence of announcement or not"/>
+        <FIELD NAME="seen" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Record of number of times a user has seen the announcement"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
