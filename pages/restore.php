@@ -125,33 +125,36 @@ if ($ownnotifs && !$allnotifs) {
 
 $table->set_sql('*', "{block_marketing_messages}", $sqlwhere, $sqlparams);
 
-// Print warning about permanently deleting announcements.
-echo '<div class="restore_announcement-block-wrapper">
-        <div class="alert alert-danger">
-            ' . get_string('marketing_messages_restore_table_warning', 'block_marketing_messages') . '
-        </div>
-      </div>';
+if (!$table->is_downloading()) {
+    // Print warning about permanently deleting announcements.
+    echo '<div class="restore_announcement-block-wrapper">
+            <div class="alert alert-danger">
+                ' . get_string('marketing_messages_restore_table_warning', 'block_marketing_messages') . '
+            </div>
+          </div>';
 
-$navbuttons['left'] = '<a class="btn btn-secondary instance" href="' .
-                            $CFG->wwwroot . '/blocks/marketing_messages/pages/announcements.php' . $param . '">' .
-                            get_string('marketing_messages_nav_manage', 'block_marketing_messages') . '</a>';
-$navbuttons['right'] = '';
-if ($allnotifs) {
-    $navbuttons['right'] = '<a class="btn btn-secondary instance" href="' .
-                                $CFG->wwwroot . '/admin/settings.php?section=blocksettingmarketing_messages' . $xparam . '">' .
-                                get_string('marketing_messages_nav_settings', 'block_marketing_messages') . '</a>';
+    $navbuttons['left'] = '<a class="btn btn-secondary instance" href="' .
+                                $CFG->wwwroot . '/blocks/marketing_messages/pages/announcements.php' . $param . '">' .
+                                get_string('marketing_messages_nav_manage', 'block_marketing_messages') . '</a>';
+    $navbuttons['right'] = '';
+    if ($allnotifs) {
+        $navbuttons['right'] = '<a class="btn btn-secondary instance" href="' .
+                                    $CFG->wwwroot . '/admin/settings.php?section=blocksettingmarketing_messages' . $xparam . '">' .
+                                    get_string('marketing_messages_nav_settings', 'block_marketing_messages') . '</a>';
+    }
+
+    // Add navigation controls before the table.
+    echo '<div id="marketing_messages_manage">' .
+            get_string('setting/navigation_desc', 'block_marketing_messages', $navbuttons) .
+            '</div><br><br>';
+
+    // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
+    echo '<div id="marketing_messages_restore_table_wrapper">';
 }
 
-// Add navigation controls before the table.
-echo '<div id="marketing_messages_manage">' .
-        get_string('setting/navigation_desc', 'block_marketing_messages', $navbuttons) .
-        '</div><br><br>';
-
-// Add a wrapper with an id, which makes reloading the table easier (when using ajax).
-echo '<div id="marketing_messages_restore_table_wrapper">';
 $table->out(20, true);
-echo '</div>';
 
 if (!$table->is_downloading()) {
+    echo '</div>';
     echo $OUTPUT->footer();
 }
