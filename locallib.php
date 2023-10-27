@@ -43,15 +43,17 @@ function prep_announcements($instanceid) {
 
     // Notifications to render.
     $rendernotif = [];
+    $audience = mm_get_user_audience();
+    $isadmin = is_siteadmin() ? "OR audience != '$audience'" : '';
 
     // Get announcements with conditions from above.
     $sql = "SELECT * FROM {block_marketing_messages} WHERE
             deleted = :deleted AND enabled = :enabled
-            AND (audience = 'all' OR audience = :audience)";
+            AND (audience = 'all' OR audience = :audience $isadmin)";
     $allnotifs = $DB->get_records_sql($sql, [
         'deleted' => 0,
         'enabled' => 1,
-        'audience' => mm_get_user_audience()
+        'audience' => $audience
     ]);
 
     foreach ($allnotifs as $notif) {

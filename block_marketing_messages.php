@@ -121,6 +121,7 @@ class block_marketing_messages extends block_base
     public function applicable_formats() {
         return [
             'all' => false,
+            'site-index' => true,
             'my' => true
         ];
     }

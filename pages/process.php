@@ -275,7 +275,7 @@ if ($purpose == 'update') {
     $urow->type = $type;
     $urow->aicon = $aicon;
     $urow->enabled = $enabled;
-    $urow->global = $global;
+    $urow->global = 1;
     $urow->audience = $audience;
     $urow->blockid = $blockinstance;
     $urow->dismissible = $dismissible;
@@ -358,7 +358,7 @@ if ($purpose == "add") {
     $row->type = $type;
     $row->aicon = $aicon;
     $row->enabled = $enabled;
-    $row->global = $global;
+    $row->global = 1;
     $row->audience = $audience;
     $row->blockid = $blockinstance;
     $row->dismissible = $dismissible;

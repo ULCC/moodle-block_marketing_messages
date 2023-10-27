@@ -138,18 +138,20 @@ if ($allnotifs) {
     $params['global'] = true;
 }
 
-// Add navigation controls before the table.
-echo '<div id="marketing_messages_manage">' .
-        get_string('setting/navigation_desc', 'block_marketing_messages', $navbuttons) .
-        '</div><br><br>';
+if (!$table->is_downloading()) {
+    // Add navigation controls before the table.
+    echo '<div id="marketing_messages_manage">' .
+            get_string('setting/navigation_desc', 'block_marketing_messages', $navbuttons) .
+            '</div><br><br>';
 
-// Add a wrapper with an id, which makes reloading the table easier (when using ajax).
-echo '<div id="marketing_messages_table_wrapper">';
+    // Add a wrapper with an id, which makes reloading the table easier (when using ajax).
+    echo '<div id="marketing_messages_table_wrapper">';
+}
+
 $table->out(20, true);
-echo '</div><hr>';
-
-echo $renderer->add_announcement($params);
 
 if (!$table->is_downloading()) {
+    echo '</div><hr>';
+    echo $renderer->add_announcement($params);
     echo $OUTPUT->footer();
 }
